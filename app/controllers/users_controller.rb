@@ -9,6 +9,14 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
+  def edit
+    @user = User.edit
+  end
+  
+  def update
+    @user = User.update
+  end
+  
   def create
     @user = User.new(user_params)
     if @user.save
