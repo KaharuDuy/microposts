@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:edit, :update]
   
   def show
     @user = User.find(params[:id])
@@ -12,7 +13,8 @@ class UsersController < ApplicationController
   def edit
   end
   
-  if @message.update(message_params)
+  def update
+    if @user.update(user_params)
       redirect_to root_path , notice: 'プロフィールを編集しました'
     else
       render 'edit'
@@ -32,6 +34,11 @@ class UsersController < ApplicationController
   private
   
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
-  end  
+    params.require(:user).permit(:name, :email, :profile, :password, :password_confirmation)
+  end
+  
+  def set_user
+    @user = User.find(params[:id])
+  end
+  
 end
