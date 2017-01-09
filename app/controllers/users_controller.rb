@@ -10,11 +10,13 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.edit
   end
   
-  def update
-    @user = User.update
+  if @message.update(message_params)
+      redirect_to root_path , notice: 'プロフィールを編集しました'
+    else
+      render 'edit'
+    end
   end
   
   def create
