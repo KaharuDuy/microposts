@@ -1,5 +1,6 @@
 class MicropostsController < ApplicationController
   before_action :logged_in_user, only: [:create]
+  before_action :correct_user, only: [:edit, :update]
 
   def create
     @micropost = current_user.microposts.build(micropost_params)
@@ -20,7 +21,13 @@ class MicropostsController < ApplicationController
   end
   
   private
+  
   def micropost_params
     params.require(:micropost).permit(:content)
+  end
+  
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to root_path if @user != current_user
   end
 end
