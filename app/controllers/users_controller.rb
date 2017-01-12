@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update]
+  before_action :set_user, only: [:show,:edit, :update]
+  before_action :correct_user, only: [:edit, :update]
+  
   
   def show
     @user = User.find(params[:id])
@@ -15,7 +17,8 @@ class UsersController < ApplicationController
   
   def update
     if @user.update(user_params)
-      redirect_to root_path , notice: 'プロフィールを編集しました'
+      flash[:success] = "Updated your Plofile"
+      redirect_to @user
     else
       render 'edit'
     end
@@ -40,5 +43,10 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
+  
+  def correct_user
+    redirect_to root_path if @user != current_user
+  end
+  
   
 end
