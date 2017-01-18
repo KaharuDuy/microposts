@@ -11,7 +11,7 @@
       <%= render 'follow_form' if logged_in? %>
       <% if @user.follower_users.any? %>
       <h3>Follower (<%= @user.follower_users.count %>)</h3>
-      <ol class="#">
+      <ol class="follower">
         <%= render @followers %>
       </ol>
     <% end %>
