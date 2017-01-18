@@ -1,3 +1,7 @@
 <li id="followeds-<%= followeds.id %>">
- <%= link_to 'フォローしているユーザー', followeds %>
+  <%= link_to gravatar_for(followeds.user, size: 50), followeds.user %></span>
+  <span class="content"><%= followeds.content %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(followeds.created_at) %> ago.
+  </span>
 </li>

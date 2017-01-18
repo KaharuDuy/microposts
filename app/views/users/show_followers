@@ -12,7 +12,7 @@
       <% if @user.follower_users.any? %>
       <h3>Follower (<%= @user.follower_users.count %>)</h3>
       <ol class="#">
-        <%= render partial: 'users/followers', collection: @followers %>
+        <%= render @followers %>
       </ol>
     <% end %>
   </div>
