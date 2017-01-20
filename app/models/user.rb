@@ -33,6 +33,15 @@ class User < ActiveRecord::Base
           following_users.include?(other_user)
       end
       
+      def favorite(micropost)
+          favorites.find_or_create_by(micropost_id: user.id)
+      end
+      
+      def unfavorite(micropos)
+          favorite = favorites.find_by(micropost_id: micropost.id)
+          favorite.destroy if favorite
+      end
+      
       def favorite?(micropost)
           favorites.include?(micropost)
       end
@@ -40,4 +49,4 @@ class User < ActiveRecord::Base
       def feed_items
          Micropost.where(user_id: following_user_ids + [self.id])
       end
-  end
+end
