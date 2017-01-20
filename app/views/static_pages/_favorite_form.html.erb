@@ -1,0 +1,7 @@
+<% if current_user != micropost.user %>
+    <% if current_user.favorite?(micropost) %>
+    <%= render 'unfavorite' %>
+      <% else %>
+    <%= render 'favorite' %>
+    <% end %>
+<% end %>

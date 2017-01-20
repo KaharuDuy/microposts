@@ -15,23 +15,29 @@ class User < ActiveRecord::Base
                                     foreign_key: "followed_id",
                                     dependent:   :destroy
   has_many :follower_users, through: :follower_relationships, source: :follower
+  
+  has_many :favorites, foreign_key: 'user_id',
+                       dependent: :destroy
+  has_many :favorite_microposts, through: :favorites, source: :micropost
 
-    def follow(other_user)
-        following_relationships.find_or_create_by(followed_id: other_user.id)
-    end
-    
-      def unfollow(other_user)
-        following_relationship = following_relationships.find_by(followed_id: other_user.id)
-        following_relationship.destroy if following_relationship
+      def follow(other_user)
+          following_relationships.find_or_create_by(followed_id: other_user.id)
       end
-    
+      
+      def unfollow(other_user)
+          following_relationship = following_relationships.find_by(followed_id: other_user.id)
+          following_relationship.destroy if following_relationship
+      end
+      
       def following?(other_user)
-        following_users.include?(other_user)
+          following_users.include?(other_user)
+      end
+      
+      def favorite?(micropost)
+          favorites.include?(micropost)
       end
       
       def feed_items
-       Micropost.where(user_id: following_user_ids + [self.id])
+         Micropost.where(user_id: following_user_ids + [self.id])
       end
-end
-
-
+  end
