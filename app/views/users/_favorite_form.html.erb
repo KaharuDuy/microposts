@@ -3,7 +3,7 @@
     <% if current_user.favorite?(micropost) %>
     <%= render 'unfavorite' %>
       <% else %>
-    <%= render 'favorite' %>
+    <%= render 'users/favorite' %>
     <% end %>
     </div>
 <% end %>
