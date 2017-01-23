@@ -11,4 +11,3 @@ class FavoritesController < ApplicationController
       current_user.unfavorite(@micropost)
     end
 end
-
